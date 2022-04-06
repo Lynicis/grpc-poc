@@ -1,9 +1,14 @@
 package main
 
-import "google.golang.org/grpc"
+import (
+	"fmt"
+	"google.golang.org/grpc"
+	"net"
+)
 
 type Server interface {
 	GetRPCServer() *grpc.Server
+	Start() error
 }
 
 type server struct {
@@ -22,4 +27,14 @@ func CreateServer(port int) Server {
 
 func (s *server) GetRPCServer() *grpc.Server {
 	return s.grpc
+}
+
+func (s *server) Start() error {
+	serverPort := fmt.Sprintf(":%d", s.port)
+	tcpServer, err := net.Listen("tcp", serverPort)
+	if err != nil {
+		return err
+	}
+
+	return s.grpc.Serve(tcpServer)
 }
