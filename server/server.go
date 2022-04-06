@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
-	"google.golang.org/grpc"
+	"log"
 	"net"
+
+	"google.golang.org/grpc"
 )
 
 type Server interface {
@@ -36,5 +38,6 @@ func (s *server) Start() error {
 		return err
 	}
 
+	log.Println("Server started!")
 	return s.grpc.Serve(tcpServer)
 }
