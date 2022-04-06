@@ -2,19 +2,18 @@ package main
 
 import (
 	"context"
-
-	"grpc-poc/server/proto/health"
+	health2 "grpc-poc/proto/health"
 )
 
 type healthService struct {
-	health.UnimplementedHealthcheckServiceServer
+	health2.UnimplementedHealthcheckServiceServer
 }
 
 func RegisterHealthService(serverInstance Server) {
 	rpcServer := serverInstance.GetRPCServer()
-	health.RegisterHealthcheckServiceServer(rpcServer, &healthService{})
+	health2.RegisterHealthcheckServiceServer(rpcServer, &healthService{})
 }
 
-func (s *healthService) Healthcheck(ctx context.Context, request *health.HealthcheckRequest) (*health.HealthcheckResponse, error) {
-	return &health.HealthcheckResponse{Status: "OK"}, nil
+func (s *healthService) Healthcheck(ctx context.Context, request *health2.HealthcheckRequest) (*health2.HealthcheckResponse, error) {
+	return &health2.HealthcheckResponse{Status: "OK"}, nil
 }

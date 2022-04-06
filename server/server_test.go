@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/grpc"
 
-	"grpc-poc/server/proto/health"
+	"grpc-poc/proto/health"
 )
 
 func Test_CreateServer(t *testing.T) {
