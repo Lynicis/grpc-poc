@@ -16,7 +16,7 @@ func Test_CreateServer(t *testing.T) {
 	assert.IsType(t, expectedServerStruct, serverInstance)
 }
 
-func Test_GetRPCServer(t *testing.T) {
+func TestServer_GetRPCServer(t *testing.T) {
 	serverPort := 8090
 	serverInstance := CreateServer(serverPort)
 
@@ -25,4 +25,16 @@ func Test_GetRPCServer(t *testing.T) {
 	expectedRPCServer := &grpc.Server{}
 
 	assert.IsType(t, expectedRPCServer, getRPCServer)
+}
+
+func TestServer_Start(t *testing.T) {
+	serverPort := 8090
+	serverInstance := CreateServer(serverPort)
+
+	go func() {
+		err := serverInstance.Start()
+		if err != nil {
+			t.Fail()
+		}
+	}()
 }
